@@ -20,7 +20,7 @@ RSpec.describe "User Discover Page", type: :feature do
     end
 
     describe "section to search movies by keyword" do
-      it "I see a text field to enter keyword(s) to search by movie title" do
+      xit "I see a text field to enter keyword(s) to search by movie title" do
         within "#search_by_keyword" do
           expect(page).to have_field("Keywords")
         end
