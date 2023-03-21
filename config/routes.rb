@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create] 
   
   get "/users/:id", to: "users#dashboard"
-  # get "/users/:id/discover", to: "discover#index"
   get "/users/:id/discover", to: "users#discover"
 
   get "/register", to: "register#new"
