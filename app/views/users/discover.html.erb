@@ -1,1 +1,10 @@
 <p><%= button_to "Discover Top Rated Movies", "/users/#{@user.id}/movies", method: :get %></p>
+
+<div id="search_by_keyword">
+  <%= form_with url: "/users/#{@user.id}/movies", method: :get, local: true do |form| %>
+    <p><%= form.label :keywords, "Keywords: " %></p>
+    <p><%= form.text_field :keywords  %></p>
+  
+    <p><%= form.submit 'Search by Movie Title' %></p>
+  <%end%>
+</div>
