@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   
   get "/users/:id", to: "users#dashboard"
   get "/users/:id/discover", to: "users#discover"
+  # get "/users/:id/movies", to: "movies#index"
 
   get "/register", to: "register#new"
   post "/register", to: "register#create"

@@ -6,4 +6,11 @@ class MovFacade
       Movie.new(data)
     end
   end
+
+  def self.keywords(text)
+    result = MovService.keywords(text)[:results]
+    result.map do |data|
+      Movie.new(data)
+    end
+  end
 end
