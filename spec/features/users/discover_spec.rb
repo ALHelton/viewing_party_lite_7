@@ -14,8 +14,10 @@ RSpec.describe "User Discover Page", type: :feature do
       end
 
       it "when I click the button, I am taken to the movies results page" do
-        click_button "Discover Top Rated Movies"
-        expect(current_path).to eq("/users/#{andra.id}/movies")
+        VCR.use_cassette("button_top_rated_discover_page", :record => :new_episodes, :match_requests_on => [:method]) do
+          click_button "Discover Top Rated Movies"
+          expect(current_path).to eq("/users/#{andra.id}/movies")
+        end
       end
     end
 
@@ -33,10 +35,12 @@ RSpec.describe "User Discover Page", type: :feature do
       end
 
       it "when I fill in the field and click search by movie title, I am taken to the movies results page" do
-        within "#search_by_keyword" do
-          fill_in :keywords, with: "Night"
-          click_button "Search by Movie Title"
-          expect(current_path).to eq("/users/#{andra.id}/movies")
+        VCR.use_cassette("search_top_rated_discover_page", :record => :new_episodes, :match_requests_on => [:method]) do
+          within "#search_by_keyword" do
+            fill_in :keywords, with: "Night"
+            click_button "Search by Movie Title"
+            expect(current_path).to eq("/users/#{andra.id}/movies")
+          end
         end
       end
     end

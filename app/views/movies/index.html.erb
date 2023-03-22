@@ -1,0 +1,16 @@
+<h1>Top Rated Movies</h1>
+
+<% if @top_rated %>
+  <% @top_rated.each do |movie| %>
+    <div class="movie">
+      <div class="movie_name">
+        <p><%= link_to "#{movie.title}", "/users/#{@user.id}/movies/#{movie.id}" %></p>
+      </div>
+
+      <div class="vote_avg">
+        <p><%= movie.vote_average %></p>
+      </div>
+    </div>
+
+  <%end%>
+<%end%>
