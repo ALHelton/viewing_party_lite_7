@@ -6,7 +6,7 @@ RSpec.describe 'Movies Index Page', type: :feature do
   describe 'when I visit "/user/:id/movies' do
 
     
-    it 'I see the movie title as a link to the movie details page' do
+    it 'I see the movie title as a link to the movie details page with a maximum of 20 results' do
       VCR.use_cassette("movie_index", :record => :new_episodes, :match_requests_on => [:method]) do
         visit "/users/#{andra.id}/movies"
 
