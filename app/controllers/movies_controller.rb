@@ -8,4 +8,9 @@ class MoviesController < ApplicationController
       MovFacade.top_rated_movies
     end
   end
+
+  def show
+    @user = User.find(params[:user_id])
+    @movie = MovFacade.details(params[:id])
+  end
 end

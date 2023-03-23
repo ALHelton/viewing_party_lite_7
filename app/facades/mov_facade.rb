@@ -13,4 +13,9 @@ class MovFacade
       Movie.new(data)
     end
   end
+
+  def self.details(movie_id)
+    movie_details = MovService.details(movie_id)
+    Movie.new(movie_details)
+  end
 end
