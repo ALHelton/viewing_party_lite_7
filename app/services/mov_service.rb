@@ -11,7 +11,12 @@ class MovService
   end
 
   def self.keywords(text)
-    response = conn.get("/3/movie/top_rated")
+    response = conn.get("/3/search/movie?&query=#{text}")
+    JSON.parse(response.body, symbolize_names: true)
+  end
+
+  def self.details(movie_id)
+    response = conn.get("/3/movie/#{movie_id}")
     JSON.parse(response.body, symbolize_names: true)
   end
 end

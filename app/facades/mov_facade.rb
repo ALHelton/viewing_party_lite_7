@@ -8,8 +8,8 @@ class MovFacade
   end
 
   def self.keywords(text)
-    result = MovService.keywords(text)[:results]
-    result.map do |data|
+    keyword_list = MovService.keywords(text)[:results]
+    keyword_list.map do |data|
       Movie.new(data)
     end
   end
