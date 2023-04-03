@@ -2,15 +2,15 @@ require 'rails_helper'
 
 RSpec.describe "User_movie Index Page", type: :feature do
   before :each do 
-    @andra = User.create!(name: "Andra", email: "andra@turing.edu")
-    @hady = User.create!(name: "Hady", email: "hady@turing.edu")
+    @andra = User.create!(name: "Andra", email: "andra@turing.edu", password: "hello123")
+    @hady = User.create!(name: "Hady", email: "hady@turing.edu", password: "hello123")
     VCR.use_cassette("top_rated_movies") do
       @results = MoviesFacade.new.top_rated_movies
     end
   end 
   describe "when visit a movie's detail page" do 
 
-    it "should show a button to create a viewing party" do
+    it "should show a button to create a viewing party and one to return to discover page" do
       VCR.use_cassette("movie_id_238_usermovie_show_spec") do
         visit "/users/#{@hady.id}/movies/#{@results[0].movie_id}"
    

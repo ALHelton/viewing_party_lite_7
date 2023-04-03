@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "party new page", type: :feature do
   before :each do 
-    @andra = User.create!(name: "Andra", email: "andra@turing.edu")
-    @hady = User.create!(name: "Hady", email: "hady@turing.edu")
-    @mike = User.create!(name: "Mike", email: "mike@turing.edu")
+    @andra = User.create!(name: "Andra", email: "andra@turing.edu", password: "heyo888")
+    @hady = User.create!(name: "Hady", email: "hady@turing.edu", password: "heyo888")
+    @mike = User.create!(name: "Mike", email: "mike@turing.edu", password: "heyo888")
 
     @halloween = Party.create!(name: "Halloween Party", user_id: @andra.id, movie_id: 1, party_date: "2023/01/01", party_time: "10:30", duration: 123)
     @girls = Party.create!(name: "Girls Night", user_id: @hady.id, movie_id: 2, party_date: "2023/01/01", party_time: "10:30", duration: 123)
