@@ -3,11 +3,17 @@
 <% end %>
 
 <%= form_with url: "/register", method: :post, local: true do |form| %>
-  <%= form.label :name %>
+  <%= form.label :name, "Name" %>
   <%= form.text_field :name %>
 <br>
-  <%= form.label :email %>
+  <%= form.label :email, "Email" %>
   <%= form.text_field :email %>
+<br>
+  <%= form.label :password, "Password" %>
+  <%= form.password_field :password %>
+<br>
+  <%= form.label :password_confirmation, "Confirm Password" %>
+  <%= form.password_field :password_confirmation %>
 <br>
   <%= form.submit 'Register User' %>
 <% end %>
