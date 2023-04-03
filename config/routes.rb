@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   get "/", to: "landing#index"
 
-  resources :users, only: [:new, :create] do 
+  resources :users, only: [:new, :create], controller: "register" do 
     resources :movies, only: [:index, :show], controller: 'user_movies' do 
       resources :parties, only: [:new, :create]
     end
