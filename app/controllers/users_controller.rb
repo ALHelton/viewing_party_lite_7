@@ -2,6 +2,17 @@ class UsersController < ApplicationController
   def new 
   end
 
+  def login_form
+
+  end
+
+  def login_user
+    # require 'pry'; binding.pry
+    user = User.find_by(email: params[:email])
+    flash[:success] = "Welcome, #{user.name}"
+    redirect_to "/users/#{user.id}"
+  end
+
   def dashboard
     @user = User.find(params[:id])
     @invited_parties = @user.invited_parties
