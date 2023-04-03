@@ -10,6 +10,7 @@ class RegisterController < ApplicationController
 
     if params[:password] == params[:password_confirmation] && @user.save
       redirect_to "/users/#{@user.id}"
+      session[:user_id] = @user.id
     else
       flash[:error] = "Can't create - make sure email is new and passwords match, and all required fields filled in"
       redirect_to "/register"
