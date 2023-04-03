@@ -11,18 +11,9 @@ class RegisterController < ApplicationController
     if params[:password] == params[:password_confirmation] && @user.save
       redirect_to "/users/#{@user.id}"
     else
-      flash[:error] = "Can't create - make sure email is new and passwords match"
+      flash[:error] = "Can't create - make sure email is new and passwords match, and all required fields filled in"
       redirect_to "/register"
     end
-
-    # if User.exists?(email: params[:email]) == false 
-    #   user = User.create(user_params)
-    #   redirect_to "/users/#{user.id}"
-    # else 
-    #   flash[:error] = "A user with that email address already exists. Please choose a different email."
-    #   redirect_to "/register"
-    # end
-
   end 
 
   private 

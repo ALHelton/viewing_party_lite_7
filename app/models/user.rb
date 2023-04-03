@@ -4,8 +4,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, uniqueness: true, presence: true
-  validates_presence_of :password
-
+  validates_presence_of :password, presence: true
   has_secure_password
 
   def get_host_parties
