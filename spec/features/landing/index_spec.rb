@@ -38,7 +38,7 @@ RSpec.describe 'landing page, index', type: :feature do
       end 
 
       it "I see a link to 'Log In', click the link, and am taken to a Log In page ('/login')" do
-        expect(page).to have_link("Login")
+        expect(page).to have_link("Log In")
         click_link("Log In")
         expect(current_path).to eq("/login")
       end
