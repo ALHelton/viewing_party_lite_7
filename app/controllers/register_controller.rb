@@ -1,6 +1,6 @@
 class RegisterController < ApplicationController
-  def new 
-
+  def new
+    @user = User.new
   end
 
   def create 
@@ -14,10 +14,9 @@ class RegisterController < ApplicationController
 
   end 
 
-    private 
+  private 
 
-    def user_params
-      params.permit(:name, :email)
-    end
-  
+  def user_params
+    params.permit(:name, :email, :password, :password_confirmation)
+  end
 end
