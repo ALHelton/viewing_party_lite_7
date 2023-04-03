@@ -37,10 +37,20 @@ RSpec.describe 'register, create page', type: :feature do
           fill_in :password_confirmation, with: "password123"
           click_button("Register User")
           expect(current_path).to eq("/register")
-          expect(page).to have_content("A user with that email address already exists. Please choose a different email.")
+          expect(page).to have_content("Can't create - make sure email is new and passwords match")
+        end
+
+        it "password and pass confirmation don't match" do
+          visit "/register"
+          fill_in :name, with: "Hady"
+          fill_in :email, with: "hady@turing.edu"
+          fill_in :password, with: "password123"
+          fill_in :password_confirmation, with: "password321"
+          click_button("Register User")
+          expect(current_path).to eq("/register")
+          expect(page).to have_content("Can't create - make sure email is new and passwords match")
         end
        end
-
       end
     end 
   end 

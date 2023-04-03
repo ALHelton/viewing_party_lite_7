@@ -4,13 +4,24 @@ class RegisterController < ApplicationController
   end
 
   def create 
-    if User.exists?(email: params[:email]) == false 
-      user = User.create(user_params)
-      redirect_to "/users/#{user.id}"
-    else 
-      flash[:error] = "A user with that email address already exists. Please choose a different email."
+    user = user_params
+    user[:email] = user[:email].downcase
+    @user = User.new(user)
+
+    if params[:password] == params[:password_confirmation] && @user.save
+      redirect_to "/users/#{@user.id}"
+    else
+      flash[:error] = "Can't create - make sure email is new and passwords match"
       redirect_to "/register"
     end
+
+    # if User.exists?(email: params[:email]) == false 
+    #   user = User.create(user_params)
+    #   redirect_to "/users/#{user.id}"
+    # else 
+    #   flash[:error] = "A user with that email address already exists. Please choose a different email."
+    #   redirect_to "/register"
+    # end
 
   end 
 
