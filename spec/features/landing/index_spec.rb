@@ -19,17 +19,17 @@ RSpec.describe 'landing page, index', type: :feature do
         expect(current_path).to eq("/register")
       end 
 
-      it "will see list of existing users with links to their respective dashboards" do 
-        expect(page).to have_content("#{@user1.name}")
-        expect(page).to have_link("#{@user1.name}'s Dashboard")
-      end 
+      # it "will see list of existing users with links to their respective dashboards" do 
+      #   expect(page).to have_content("#{@user1.name}")
+      #   expect(page).to have_link("#{@user1.name}'s Dashboard")
+      # end 
 
-      it "if you click on a user's dashboard link, you will be taken to that user's dashboard" do
-        within("#existing_users") do 
-          click_link("#{@user1.name}'s Dashboard")
-          expect(current_path).to eq("/users/#{@user1.id}")
-        end
-      end
+      # it "if you click on a user's dashboard link, you will be taken to that user's dashboard" do
+      #   within("#existing_users") do 
+      #     click_link("#{@user1.name}'s Dashboard")
+      #     expect(current_path).to eq("/users/#{@user1.id}")
+      #   end
+      # end
 
       it "link to go back to landing page" do 
         expect(page).to have_link("Back to Landing Page")
@@ -71,4 +71,17 @@ RSpec.describe 'landing page, index', type: :feature do
       end
     end 
   end 
+
+  describe "As a default visitor" do
+    it "I do not see the section of the page that lists existing users" do
+      user = User.create(name: "Andra", email: "andra@gmail.com", password: "test")
+      user2 = User.create(name: "Hady", email: "hady@gmail.com", password: "test")
+
+      within "#existing_users" do
+        expect(page).to_not have_content("Existing Users and Their Dashboards")
+        expect(page).to_not have_content(user.name)
+        expect(page).to_not have_content(user2.name)
+      end
+    end
+  end
 end
