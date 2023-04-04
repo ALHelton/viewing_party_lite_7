@@ -13,9 +13,9 @@ RSpec.describe 'landing page, index', type: :feature do
         expect(page).to have_content("Viewing Party Application (Andra and Hady)")
       end 
 
-      it "user will see a button to create a new user" do 
-        expect(page).to have_button("Create New User")
-        click_button("Create New User")
+      it "user will see a button to register a new user" do 
+        expect(page).to have_button("Register")
+        click_button("Register")
         expect(current_path).to eq("/register")
       end 
 
@@ -37,10 +37,22 @@ RSpec.describe 'landing page, index', type: :feature do
         expect(current_path).to eq("/")
       end 
 
-      it "I see a link to 'Log In', click the link, and am taken to a Log In page ('/login')" do
-        expect(page).to have_link("Log In")
-        click_link("Log In")
+      it "I see a link to 'Log In', click the button, and am taken to a Log In page ('/login')" do
+        expect(page).to have_button("Log In")
+        click_button("Log In")
         expect(current_path).to eq("/login")
+      end
+
+      it "After logging in successfully, I see a button to log out" do
+        user = User.create(name: "Andra", email: "funbucket13@gmail.com", password: "test")
+        click_button("Log In")
+        fill_in :email, with: "funbucket13@gmail.com"
+        fill_in :password, with: "test"
+        click_on "Log In"
+        expect(current_path).to eq("/users/#{user.id}")
+        
+        click_link "Back to Landing Page"
+        expect(page).to have_button("Log Out")
       end
     end 
   end 

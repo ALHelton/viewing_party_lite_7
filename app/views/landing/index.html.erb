@@ -1,15 +1,19 @@
 "Viewing Party Application (Andra and Hady)"
 
-<!-- <% if current_user %>
-  <%= link_to "Log Out" %>
+<% if current_user %>
+  <%= button_to "Log Out" %>
 <% else %>
-  <%= link_to "Log In", login_path %>
-<% end %> -->
+  <br>
+  <br>
+  <%= button_to "Register", "/register", method: :get %>
+  <br>
+  <!-- <%= link_to "I already have an account", login_path %> -->
+  <%= button_to "Log In", login_path, method: :get %>
+<% end %>
 
-<%= link_to "Log In", login_path, method: :get %>
 
 <br>
-<%= button_to "Create New User", "/register", method: :get %>
+<!-- <%= button_to "Create New User", "/register", method: :get %> -->
 
 <div id="existing_users">
   <h2> Existing Users and Their Dashboards </h2>
