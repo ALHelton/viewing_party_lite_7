@@ -1,7 +1,7 @@
 "Viewing Party Application (Andra and Hady)"
 
 <% if current_user %>
-  <%= button_to "Log Out" %>
+  <%= button_to "Log Out", "/", method: :delete %>
 <% else %>
   <br>
   <br>

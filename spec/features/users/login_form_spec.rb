@@ -35,6 +35,11 @@ RSpec.describe 'User Login page', type: :feature do
 
       expect(current_path).to eq(login_path)
       expect(page).to have_content("Sorry, your credentials are bad.")
+
+      fill_in :email, with: "hello@gmail.com"
+      fill_in :password, with: "another test"
+      click_on "Log In"
+      expect(page).to have_content("Sorry, your credentials are bad.")
     end
   end
 end

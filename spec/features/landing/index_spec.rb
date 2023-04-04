@@ -43,16 +43,31 @@ RSpec.describe 'landing page, index', type: :feature do
         expect(current_path).to eq("/login")
       end
 
-      it "After logging in successfully, I see a button to log out" do
-        user = User.create(name: "Andra", email: "funbucket13@gmail.com", password: "test")
-        click_button("Log In")
-        fill_in :email, with: "funbucket13@gmail.com"
-        fill_in :password, with: "test"
-        click_on "Log In"
-        expect(current_path).to eq("/users/#{user.id}")
-        
-        click_link "Back to Landing Page"
-        expect(page).to have_button("Log Out")
+      describe "log in / log out functionality" do
+        before do
+          user = User.create(name: "Andra", email: "funbucket13@gmail.com", password: "test")
+          click_button("Log In")
+          fill_in :email, with: "funbucket13@gmail.com"
+          fill_in :password, with: "test"
+          click_on "Log In"
+          expect(current_path).to eq("/users/#{user.id}")
+          click_link "Back to Landing Page"
+        end
+
+        it "After logging in successfully, I see log out (not log in or register)" do
+          expect(page).to have_button("Log Out")
+          expect(page).to_not have_button("Log In")
+          expect(page).to_not have_button("Register")
+        end
+
+        it "when logged out, I see button to log in or register" do
+          click_on "Log Out"
+          expect(current_path).to eq("/")
+          expect(page).to have_button("Log In")
+          expect(page).to have_button("Register")
+          expect(page).to_not have_button("Log Out")
+          expect(page).to have_content("You have successfully logged out.")
+        end
       end
     end 
   end 

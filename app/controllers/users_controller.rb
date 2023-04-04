@@ -3,13 +3,12 @@ class UsersController < ApplicationController
   end
 
   def login_form
-
   end
 
   def login_user
     user = User.find_by(email: params[:email])
 
-    if user.authenticate(params[:password])
+    if user != nil && user.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.name}"
       redirect_to "/users/#{user.id}"
@@ -17,6 +16,12 @@ class UsersController < ApplicationController
       flash.now[:error] = "Sorry, your credentials are bad."
       render :login_form, status: 400
     end
+  end
+
+  def destroy
+    reset_session
+    flash[:success] = "You have successfully logged out."
+    redirect_to "/"
   end
 
   def dashboard
