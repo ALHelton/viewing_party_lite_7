@@ -1,12 +1,13 @@
 "Viewing Party Application (Andra and Hady)"
 
-<% if current_user %>
+<!-- <% if current_user %>
   <%= link_to "Log Out" %>
 <% else %>
   <%= link_to "Log In", login_path %>
-<% end %>
+<% end %> -->
 
-<!-- <%= link_to "Log In", login_path, method: :get %> -->
+<%= link_to "Log In", login_path, method: :get %>
+
 <br>
 <%= button_to "Create New User", "/register", method: :get %>
 
