@@ -1,7 +1,6 @@
 "Viewing Party Application (Andra and Hady)"
 
 <% if current_user %>
-
   <%= button_to "Log Out", "/", method: :delete %>
 <% else %>
   <br>
@@ -12,8 +11,8 @@
   <%= button_to "Log In", login_path, method: :get %>
 <% end %>
 
-
 <br>
+
 <!-- <%= button_to "Create New User", "/register", method: :get %> -->
 
 <div id="existing_users">

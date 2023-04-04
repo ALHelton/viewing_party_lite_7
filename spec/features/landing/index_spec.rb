@@ -47,8 +47,6 @@ RSpec.describe 'landing page, index', type: :feature do
       #   end
       # end
 
-
-
       it "link to go back to landing page" do 
         expect(page).to have_link("Back to Landing Page")
         click_link("Back to Landing Page")
@@ -103,6 +101,23 @@ RSpec.describe 'landing page, index', type: :feature do
         expect(page).to_not have_content(@user1.name)
         expect(page).to_not have_content(@user2.name)
       end
+    end
+
+    # it "when I try to visit '/dashboard, I remain on the landing page w/ message to register/log in to access dashboard" do
+    #   expect(page).to have_link("Dashboard")
+    #   click_link("Dashboard")
+    #   expect(current_path).to eq("/")
+    #   expect(page).to have_content("You must log in to access dashboard")
+    # end
+
+    it "when I try to visit '/dashboard, I remain on the landing page w/ message to register/log in to access dashboard" do
+      visit "/users/#{@user1.id}"
+      expect(current_path).to eq("/")
+      expect(page).to have_content("You must log in to access dashboard")
+
+      visit "/dashboard"
+      expect(current_path).to eq("/")
+      expect(page).to have_content("You must log in to access dashboard")
     end
   end
 end
