@@ -1,8 +1,22 @@
 class PartiesController < ApplicationController
-  def new 
-    @movie = MoviesFacade.new.get_all_movie_info(params[:movie_id])
-    @user = User.find(params[:user_id])
-    @all_users = User.all
+  def new
+    if current_user
+      @movie = MoviesFacade.new.get_all_movie_info(params[:movie_id])
+      @user = User.find(params[:user_id])
+      @all_users = User.all
+    else
+      flash[:error] = "You must be logged in or registered to create a party"
+      if request.referrer != nil
+        redirect_to request.referrer
+      else
+        redirect_to "/"
+      end
+
+      # @movie = MoviesFacade.new.get_all_movie_info(params[:movie_id])
+      # @user = User.find(params[:user_id])
+      # flash[:error] = "You must be logged in or registered to create a party"
+      # redirect_to "/users/#{@user.id}/movies/#{@movie.movie_id}"
+    end
   end
 
   def create
