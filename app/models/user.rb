@@ -7,6 +7,8 @@ class User < ApplicationRecord
   validates_presence_of :password, presence: true
   has_secure_password
 
+  enum role: %w(default registered_user admin)
+
   def get_host_parties
     Party.where(user_id: self.id)
   end
