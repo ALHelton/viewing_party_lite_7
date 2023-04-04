@@ -27,6 +27,23 @@ RSpec.describe User, type: :model do
     it { should have_many(:parties).through(:user_parties) }
   end
 
+  describe "enums" do
+    it "default" do
+      user = User.new
+      expect(user.role).to eq("default")
+    end
+
+    it "registered_user" do
+      user = User.new(role: "registered_user")
+      expect(user.role).to eq("registered_user")
+    end
+
+    it "admin" do
+      user = User.new(role: "admin")
+      expect(user.role).to eq("admin")
+    end
+  end
+
   describe "attributes" do
     it "should have correct attributes" do
       user = User.create(name: 'Meg', email: 'meg@test.com', password: 'password123', password_confirmation: 'password123')
