@@ -1,7 +1,7 @@
 "Viewing Party Application (Andra and Hady)"
 
 <% if current_user %>
-  
+
   <%= button_to "Log Out", "/", method: :delete %>
 <% else %>
   <br>
@@ -18,9 +18,20 @@
 
 <div id="existing_users">
   <% if current_user %>
+    <h2> Existing User Emails </h2>
+    <%@users.each do |user|%>
+      <ul>
+      <li><%=user.email%></li>
+      </ul>
+    <%end%>
+  <%end%>
+</div>
+
+<!-- <div id="existing_users">
+  <% if current_user %>
     <h2> Existing Users and Their Dashboards </h2>
     <%@users.each do |user|%>
       <p><%=user.name%> <%=link_to "#{user.name}'s Dashboard", "/users/#{user.id}"%> </p>
     <%end%>
   <%end%>
-</div>
+</div> -->
