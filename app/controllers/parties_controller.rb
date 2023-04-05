@@ -6,6 +6,7 @@ class PartiesController < ApplicationController
       @all_users = User.all
     else
       flash[:error] = "You must be logged in or registered to create a party"
+      
       if request.referrer != nil
         redirect_to request.referrer
       else

@@ -10,11 +10,16 @@ RSpec.describe "party new page", type: :feature do
     @girls = Party.create!(name: "Girls Night", user_id: @hady.id, movie_id: 2, party_date: "2023/01/01", party_time: "10:30", duration: 123)
     @eighties = Party.create!(name: "Eighties", user_id: @hady.id, movie_id: 3, party_date: "2023/01/01", party_time: "10:30", duration: 123)
     
+    visit "/"
+    click_button("Log In")
+    fill_in :email, with: "hady@turing.edu"
+    fill_in :password, with: "hello123"
+
     VCR.use_cassette("top_rated_movies") do
       @results = MoviesFacade.new.top_rated_movies
     end
   end 
-  describe "when visit the viewing party page" do 
+  describe "As a Registered User" do 
 
     it "when you enter the viewing party, it lists the movie title, the voting average and the runtime in hours and minutes" do
       VCR.use_cassette("party_new_spec", :allow_playback_repeats => true) do
