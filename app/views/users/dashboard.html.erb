@@ -1,48 +1,117 @@
-<h1><%= @user.name %>'s Dashboard</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
 
-<p><%= button_to "Discover Movies", "/users/#{@user.id}/discover", method: :get %></p>
+    h1 {
+      font-size: 1.8em;
+      margin-bottom: 1em;
+    }
 
+    h3 {
+      font-size: 1.4em;
+      margin-bottom: 0.5em;
+    }
 
-<% if @invited_parties %>
-<div id="viewing_parties_invited">
-  <h3><%= @user.name %>'s Viewing Parties to Which She Has Been Invited:</h3>
- 
-  <% @invited_parties_with_hosts.each do |party| %>
+    h4 {
+      font-size: 1.2em;
+      margin-bottom: 0.3em;
+    }
 
-  <div id="<%= party[:party].id %>">
-    <h4><%= party[:party].name %></h4>
-    <p><%= image_tag party[:movie_image], alt: "Movie Picture" %>
-    <p>Party Date:<%= party[:party].party_date.strftime('%m/%d/%Y') %> </p>
-    <p>Party Time: <%= party[:party].party_time.strftime("%I:%M %p") %> </p>
-    <p>Host: <%=party[:host] %>
-    <p>Movie Title:</p>
-    <div id="title">
-      <%=party[:movie_title] %>
-      <%= link_to "#{party[:movie_title]}", "/users/#{party[:party].user_id}/movies/#{party[:party].movie_id}"%>
-    </div>  
-    <div id="list_of_invitees">
-    List of Invitees:
-      <%party[:list_invitees].each do |invitee|%>
-        <% if invitee.name == @user.name %>
-          <p><b><%=invitee.name%></b></p>
-        <% else%>
-            <p><%=invitee.name%></p>
+    p {
+      margin-bottom: 0.5em;
+    }
+
+    #title {
+      font-weight: bold;
+    }
+
+    #discover-movies-button {
+      background-color: #3498db;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 1em;
+      margin-bottom: 1.5em;
+      padding: 0.5em 1em;
+      text-decoration: none;
+    }
+
+    #discover-movies-button:hover {
+      background-color: #2980b9;
+    }
+
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #2980b9;
+      text-decoration: underline;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    #viewing_parties_invited, #host_parties {
+      margin-bottom: 2em;
+    }
+  </style>
+</head>
+<body>
+  <h1><%= @user.name %>'s Dashboard</h1>
+
+  <p><%= button_to "Discover Movies", "/users/#{@user.id}/discover", method: :get, class: "btn" %></p>
+
+  <% if @invited_parties %>
+  <div id="viewing_parties_invited">
+    <h3><%= @user.name %>'s Viewing Parties to Which They Have Been Invited:</h3>
+
+    <% @invited_parties_with_hosts.each do |party| %>
+
+    <div id="<%= party[:party].id %>">
+      <h4><%= party[:party].name %></h4>
+      <p><%= image_tag party[:movie_image], alt: "Movie Picture" %>
+      <p>Party Date:<%= party[:party].party_date.strftime('%m/%d/%Y') %> </p>
+      <p>Party Time: <%= party[:party].party_time.strftime("%I:%M %p") %> </p>
+      <p>Host: <%=party[:host] %>
+      <p>Movie Title:</p>
+      <div id="title">
+        <%=party[:movie_title] %>
+        <%= link_to "#{party[:movie_title]}", "/users/#{party[:party].user_id}/movies/#{party[:party].movie_id}"%>
+      </div>  
+      <div id="list_of_invitees">
+      List of Invitees:
+        <%party[:list_invitees].each do |invitee|%>
+          <% if invitee.name == @user.name %>
+            <p><b><%=invitee.name%></b></p>
+          <% else%>
+              <p><%=invitee.name%></p>
+          <%end%>
         <%end%>
-      <%end%>
-    </div>
+      </div>
 
-    <br>
-    <br>
-    <br>
-    <br>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+    <%end%>
   </div>
   <%end%>
-</div>
-<%end%>
 
-<% if @all_user_parties_host %>
-  <div id="host_parties">
-    <h3><%= @user.name %>'s Hosting Parties:</h3>
+  <% if @all_user_parties_host %>
+    <div id="host_parties">
+      <h3><%= @user.name %>'s Hosting Parties:</h3>
       <% @all_user_parties_host.each do |party| %>
         <div id=<%="#{party[:party].id}"%>>
           <h3><%= party[:party].name%></h3>
@@ -57,7 +126,7 @@
           <%= image_tag party[:movie_image], alt: "movie_picture" %>
           
           <div id="list_of_invitees">
-          List of Invitees:
+            List of Invitees:
             <% party[:list_invitees].each do |invitee| %>
               <p><%= invitee.name %></p>
             <%end%>
@@ -65,9 +134,7 @@
 
         </div>
       <%end%>
-  </div>
-
-  <div id="title">
-  </div>
-
-<%end%>
+    </div>
+  <%end%>
+</body>
+</html>

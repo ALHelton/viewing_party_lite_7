@@ -1,3 +1,70 @@
-<%= link_to "Return to Discover Page", "/users/#{@user.id}/discover" %>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Party</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5dc;
+      margin: 0;
+      padding: 0;
+    }
+    
+    h1 {
+      text-align: center;
+      margin: 30px 0;
+    }
 
-<%= link_to "Create Viewing Party", "/users/#{@user.id}/movies/#{@movie.movie_id}/parties/new" %>
+    a {
+      color: #35424a;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #e8491d;
+      text-decoration: underline;
+    }
+
+    .btn {
+      display: block;
+      width: 300px;
+      margin: 20px auto;
+      padding: 10px;
+      text-align: center;
+      background-color: #eae6c5;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #f7e8b1;
+    }
+  </style>
+</head>
+<body>
+  <h1>Movie Party</h1>
+
+  <a class="btn" href="/users/<%= @user.id %>/discover">Return to Discover Page</a>
+
+  <a class="btn" href="/users/<%= @user.id %>/movies/<%= @movie.movie_id %>/parties/new">Create Viewing Party</a>
+
+  <ol>
+    <% if @results %>
+      <% @results.each do |movie| %>
+        <li>
+          <div class="movie">
+            <div class="name">
+              <%= link_to "#{movie.name}", "/users/#{@user.id}/movies/#{movie.movie_id}" %>
+            </div>
+            <div class="vote_average">
+              <%= movie.vote_average %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ol>
+</body>
+</html>

@@ -1,19 +1,74 @@
-<%= link_to "Return to Discover Page", "/users/#{@user.id}/discover" %>
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5dc;
+      margin: 0;
+      padding: 0;
+    }
 
-<ol>
+    a {
+      color: #35424a;
+      text-decoration: none;
+    }
 
-<%if @results %>
-  <%@results.each do |movie|%>
-    <li>
-    <div class ="movie">
-      <div class ="name">
-      <%= link_to "#{movie.name}", "/users/#{@user.id}/movies/#{movie.movie_id}"  %> 
-        </div> 
-      <div class ="vote_average">
-        <%=movie.vote_average%> </p>
-       </div>
-    </div>
-    </li>
-  <%end%>
-<%end%>
-</ol>
+    a:hover {
+      color: #e8491d;
+      text-decoration: underline;
+    }
+
+    #return-link {
+      display: block;
+      text-align: right;
+      margin-top: 20px;
+      padding: 10px;
+    }
+
+    ol {
+      padding: 0;
+      margin: 20px;
+    }
+
+    li {
+      list-style: none;
+      margin-bottom: 10px;
+    }
+
+    .movie {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: #eae6c5;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .name, .vote_average {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <%= link_to "Return to Discover Page", "/users/#{@user.id}/discover", id: "return-link" %>
+
+  <ol>
+    <% if @results %>
+      <% @results.each do |movie| %>
+        <li>
+          <div class="movie">
+            <div class="name">
+              <%= link_to "#{movie.name}", "/users/#{@user.id}/movies/#{movie.movie_id}" %>
+            </div>
+            <div class="vote_average">
+              <%= movie.vote_average %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ol>
+</body>
+</html>

@@ -1,13 +1,121 @@
-<% if flash[:error] %>
-  <div class="alert alert-danger"><%= flash[:error] %></div>
-<% end %>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5dc;
+      margin: 0;
+      padding: 0;
+    }
 
-<%= form_with url: "/register", method: :post, local: true do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %>
-<br>
-  <%= form.label :email %>
-  <%= form.text_field :email %>
-<br>
-  <%= form.submit 'Register User' %>
-<% end %>
+    a {
+      color: #35424a;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #e8491d;
+      text-decoration: underline;
+    }
+
+    #return-link {
+      display: block;
+      text-align: right;
+      margin-top: 20px;
+      padding: 10px;
+    }
+
+    ol {
+      padding: 0;
+      margin: 20px;
+    }
+
+    li {
+      list-style: none;
+      margin-bottom: 10px;
+    }
+
+    .movie {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: #eae6c5;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .name, .vote_average {
+      margin: 0;
+    }
+
+    /* Styling for flash messages */
+    .alert {
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid transparent;
+      border-radius: 5px;
+    }
+
+    .alert-success {
+      color: #155724;
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+    }
+
+    .alert-danger {
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
+
+    /* Form styling */
+    form {
+      margin: 20px;
+      background-color: #eae6c5;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    form label {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    form input[type=text], form input[type=email] {
+      margin-bottom: 10px;
+      padding: 5px;
+      border-radius: 3px;
+      border: none;
+    }
+
+    form input[type=submit] {
+      background-color: #35424a;
+      color: #ffffff;
+      border: none;
+      border-radius: 3px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    form input[type=submit]:hover {
+      background-color: #e8491d;
+    }
+
+  </style>
+</head>
+<body>
+  <% if flash[:error] %>
+    <div class="alert alert-danger"><%= flash[:error] %></div>
+  <% end %>
+
+  <%= form_with url: "/register", method: :post, local: true do |form| %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+    <br>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+    <br>
+    <%= form.submit 'Register User' %>
+  <% end %>
+</body>

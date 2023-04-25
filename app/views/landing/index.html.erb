@@ -1,10 +1,70 @@
-"Viewing Party Application (Andra and Hady)"
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f5deb3;
+    }
 
-<%= button_to "Create New User", "/register", method: :get %>
+    #page-container {
+      margin: 2em;
+      <button id="about-us-button">About Us</button>
 
-<div id="existing_users">
-  <h2> Existing Users and Their Dashboards </h2>
-  <%@users.each do |user|%>
-  <p><%=user.name%> <%=link_to "#{user.name}'s Dashboard", "/users/#{user.id}"%> </p>
-  <%end%>
-</div>
+    }
+
+    #title {
+      font-size: 1.5em;
+      margin-bottom: 1em;
+    }
+
+    #create-user-button {
+      background-color: #3498db;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 1em;
+      margin-bottom: 1.5em;
+      padding: 0.5em 1em;
+      text-decoration: none;
+    }
+
+    #create-user-button:hover {
+      background-color: #2980b9;
+    }
+
+    #existing_users h2 {
+      font-size: 1.2em;
+      margin-bottom: 0.5em;
+    }
+
+    #existing_users a {
+      display: block;
+      margin-bottom: 0.5em;
+      color: #3498db;
+    }
+
+    #existing_users a:hover {
+      color: #2980b9;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div id="page-container">
+    <h1 id="title">Viewing Party Application (Andra and Hady)</h1>
+
+    <%= button_to "Create New User", "/register", method: :get, class: "btn" %>
+
+    <div id="existing_users">
+      <h2>Existing Users and Their Dashboards</h2>
+      <%@users.each do |user|%>
+        <%=link_to "#{user.name}'s Dashboard", "/users/#{user.id}", class: "dashboard-link"%>
+      <%end%>
+    </div>
+  </div>
+</body>
+</html>

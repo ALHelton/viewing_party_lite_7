@@ -1,89 +1,202 @@
-<%if flash[:notice]%>
-  <%=flash[:notice]%>
-<%end%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Party</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5dc;
+      margin: 0;
+      padding: 0;
+    }
+    
+    h1 {
+      text-align: center;
+      margin: 30px 0;
+    }
 
-<%if @movie.name %>
-  <div id ="movie_title">
-    <h1>"Movie Title" <%=@movie.name%> </h1>
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #eae6c5;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type=text], input[type=number], input[type=date], input[type=time] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: none;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type=checkbox] {
+      margin-right: 5px;
+    }
+
+    input[type=submit] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 20px auto;
+      border: none;
+      border-radius: 5px;
+      background-color: #35424a;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type=submit]:hover {
+      background-color: #e8491d;
+    }
+
+    #movie_title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #vote_average, #runtime, #genres, #description, #cast_members, #count_of_reviews, #author_information {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #eae6c5;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+    }
+
+    #author_information {
+      margin-bottom: 50px;
+    }
+
+    #author_information h3 {
+      margin-top: 0;
+    }
+
+    #author_information li {
+      margin-bottom: 10px;
+    }
+
+    #flash-notice {
+      background-color: #ff4c4c;
+      color: #000000;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <% if flash[:notice] %>
+    <div id="flash-notice">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <% if @movie.name %>
+    <div id="movie_title">
+      <h1>Movie Title <%= @movie.name %></h1>
+    </div>
+  <% end %>
+
+  <div id="viewing_party_form">
+    <%= form_with url: "/users/#{@user.id}/movies/#{@movie.movie_id}/parties", method: "post", local: true do |form| %>
+      <%= form.label :name, "Name:" %>
+      <%= form.text_field :name, required: true %>
+
+      <%= form.label :duration, "Party duration (in minutes):" %>
+      <%= form.number_field :duration, value: @movie.raw_runtime.to_i, required: true %>
+      <br>
+
+      <%= form.label :date, "Proposed Date:" %>
+      <%= form.date_field :party_date, required: true %>
+      <br>
+      <%= form.label :time, "Proposed Start Time:" %>
+      <%= form.time_field :party_time, required: true %>
+      <br>
+
+      <% @all_users.each do |user| %>
+        <div class="checkbox-container">
+          <%= form.label "invites_#{user.id}", "Invite #{user.name}:" %>
+          <%= form.check_box :invites, { multiple: true }, user.id, nil %>
+        </div>
+      <% end %>
+
+      <%= form.submit "Create Party" %>
+    <% end %>
   </div>
-<%end%>
 
-<div id="viewing_party_form">
-<%= form_with url: "/users/#{@user.id}/movies/#{@movie.movie_id}/parties", method: "post", local: true do |form| %>
-  <%= form.label :name, "Name:" %>
-  <%= form.text_field :name, required: true %>
+  <% if @movie.vote_average %>
+    <div id="vote_average">
+      <p>Vote Average <%= @movie.vote_average %></p>
+    </div>
+  <% end %>
 
-  <%= form.label :duration, "Party duration (in minutes):" %>
-  <%= form.number_field :duration, value: @movie.raw_runtime.to_i, required: true %>
-  <br>
+  <% if @movie.runtime %>
+    <div id="runtime">
+      <p>Runtime <%="#{@movie.runtime[0]} hours and #{@movie.runtime[1]} minutes"%></p>
+    </div>
+  <% end %>
 
-  <%= form.label :date, "Proposed Date:" %>
-  <%= form.date_field :party_date, required: true %>
-  <br>
-  <%= form.label :time, "Proposed Start Time:" %>
-  <%= form.time_field :party_time, required: true %>
-  <br>
-    <%@all_users.each do |user|%>
-      <div id=<%=user.name%>>
-      Check to invite to viewing party <%=user.name%>  <%= form.check_box "invites", {multiple: true}, user.id, nil %>
-      </div>
-    <%end%>
+  <% if @movie.genres %>
+    <div id="genres">
+      <p>Genres <% @movie.genres.each do |genre| %>
+                      <%= genre %>
+                    <% end %>      
+      </p>
+    </div>
+  <% end %>
 
-  <%= form.submit "Create Party" %>
-<% end %>
-</div>
+  <% if @movie.description %>
+    <div id="description">
+      <p>Summary Description <%= @movie.description %></p>
+    </div>
+  <% end %>
 
-<%if @movie.vote_average%>
-  <div id ="vote_average">
-    <p>"Vote Average" <%=@movie.vote_average%> </p>
-  </div>
-<%end%>
+  <% if @movie.cast_members %>
+    <div id="cast_members">
+      Cast Members
+      <ul>
+        <% @movie.cast_members.each do |member| %>
+          <li><%="#{member[1]} as #{member[0]}"%></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%if @movie.runtime%>
-  <div id ="runtime">
-  <p>"Runtime" <%="#{@movie.runtime[0]} hours and #{@movie.runtime[1]} minutes"%> </p>
-  </div>
-<%end%>
+  <% if @movie.count_of_reviews %>
+    <div id="count_of_reviews">
+      <p>Number of Reviews <%= @movie.count_of_reviews %></p>
+    </div>
+  <% end %>
 
-<%if @movie.genres%>
-  <div id ="genres">
-    <p>"Genres" <%@movie.genres.each do |genre|%>
-                  <%=genre%>
-                  <%end%>      
-    </p>
-  </div>
-<%end%>
-
-<%if @movie.description%>
-  <div id ="description">
-    <p>"Summary Description" <%=@movie.description%> </p>
-  </div>
-<%end%>
-
-<%if @movie.cast_members%>
-  <div id ="cast_members">
-    "Cast Members" 
-    <%@movie.cast_members.each do |member|%> 
-      <li> <%="#{member[1]} as #{member[0]}"%> </li>
-    <%end%>
-  </div>
-<%end%>
-
-<%if @movie.count_of_reviews%>
-  <div id ="count_of_reviews">
-    <p>"Number of Reviews" <%=@movie.count_of_reviews%> </p>
-  </div>
-<%end%>
-
-<%if @movie.author_information%>
-  <div id ="author_information">
-    <h3>"Reviewers' Information" </h3> 
-    <%@movie.author_information.each do |author|%> 
-    <li>
-      Username: <%=author.second[:username]%> 
-      <p>Avatar path: <%=author.second[:avatar_path]%> </p>
-      <p> Rating: <%=author.second[:rating]%> </p>
-    </li>
-    <%end%>
-  </div>
-<%end%>
+  <% if @movie.author_information %>
+    <div id="author_information">
+      <h3>Reviewers' Information</h3>
+      <ul>
+        <% @movie.author_information.each do |author| %>
+          <li>
+            Username: <%= author.second[:username] %>
+            <p>Avatar path: <%= author.second[:avatar_path] %></p>
+            <p>Rating: <%= author.second[:rating] %></p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</body>
+</html>

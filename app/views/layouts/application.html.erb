@@ -5,14 +5,163 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+      header {
+        background-color: #35424a;
+        color: #ffffff;
+        padding-top: 30px;
+        min-height: 70px;
+        border-bottom: #e8491d 3px solid;
+      }
+      header a {
+        color: #ffffff;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 16px;
+      }
+      header li {
+        float: left;
+        display: inline;
+        padding: 0 20px;
+      }
+      header #branding {
+        float: left;
+      }
+      header #branding h1 {
+        margin: 0;
+      }
+      header nav {
+        float: right;
+        margin-top: 10px;
+      }
+      header .highlight, header .current a {
+        color: #e8491d;
+        font-weight: bold;
+      }
+      header a:hover {
+        color: #cccccc;
+        font-weight: bold;
+      }
+      #landing-page-link {
+        display: block;
+        width: 100%;
+        background-color: #3c9636;
+        color: #ffffff;
+        text-align: center;
+        padding: 1em;
+        text-decoration: none;
+      }
+      #landing-page-link:hover {
+        background-color: #3c9636;
+        transition: background-color 0.3s;
+      }
+      main {
+        padding: 2em;
+        background-color: #ffffff;
+      }
+      .popup-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        margin-right: 20px;
+      }
+      .popup {
+        display: none;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid black;
+        z-index: 100;
+      }
+      .popup-container {
+        max-height: 80vh;
+        overflow-y: auto;
+        padding-right: 20px;
+      }
+      #close-popup {
+        position: sticky;
+        top: 5px;
+        right: 10px;
+        cursor: pointer;
+      }
+    </style>
   </head>
-
   <body>
-      <%=link_to "Back to Landing Page", "/"%>
-    <%= yield %>
+    <header>
+      <nav>
+        <ul>
+          <li><%= link_to "Back to Landing Page", "/", id: "landing-page-link" %></li>
+          <li><button class="popup-button" onclick="openPopup('about-us-popup')">About Us</button></li>
+          <li><button class="popup-button" onclick="openPopup('site-functionality-popup')">Site Functionality</button></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
+
+    <div id="about-us-popup" class="popup">
+      <div class="popup-container">
+        <span id="close-popup" onclick="closePopup('about-us-popup')">&times;</span>
+        <p>
+          Welcome to Viewing Party, an application designed by Hady Matar and Andra Helton as part of our software programming education at Turing School of Software and Design. Our goal is to provide a platform for users to explore movies and create viewing party events, while mastering concepts like consuming JSON APIs with authentication and maintaining code quality.
+        </p>
+        <p>
+          We invite you to explore our project and learn more about our journey. Feel free to visit Hady Matar's Github at <a href="https://github.com/hadyematar23" target="_blank">github.com/hadyematar23</a>, Andra Helton's Github at <a href="https://github.com/ALHelton" target="_blank">github.com/ALHelton</a>, Hady's LinkedIn at <a href="https://www.linkedin.com/in/hady-emmanuel-matar/" target="_blank">linkedin.com/in/hady-emmanuel-matar</a>, and Andra's LinkedIn at <a href="https://www.linkedin.com/in/andrahelton/" target="_blank">linkedin.com/in/andrahelton</a>. We appreciate your interest and welcome your feedback!
+        </p>
+      </div>
+    </div>
+
+    <div id="site-functionality-popup" class="popup">
+      <div class="popup-container">
+        <span id="close-popup" onclick="closePopup('site-functionality-popup')">&times;</span>
+        <h3>Site Functionality:</h3>
+        <h4>User Registration and Dashboard:</h4>
+  Users can register for an account by visiting the '/register' path and filling out a form with their name and email. Once registered, they are directed to their personalized dashboard page, which displays their viewing parties and allows them to discover movies.
+
+  <h4>Landing Page with Existing Users List:</h4>
+  The root path ('/') displays the title of the application, a button to create a new user, and a list of existing users. Each user name in the list is a link to their respective dashboard page. A link is provided at the top of all pages to navigate back to the landing page.
+
+  <h4>Movie Discovery and Search:</h4>
+  Users can discover movies by visiting their dashboard and clicking the "Discover Movies" button. This takes them to a discovery page where they can browse top-rated movies or search for movies by title. The resulting movies are displayed on a separate results page, with each movie title linking to a detailed movie information page.
+
+  <h4>Movie Details and Viewing Party Creation:</h4>
+  On the movie details page, users can view comprehensive information about the movie, including title, vote average, runtime, genres, summary, cast members, and reviews. They can also create a viewing party by specifying party duration, date, time, and inviting other users.
+
+  <h4>Viewing Party Invitations and Management:</h4>
+  Users can view both the parties they have been invited to and the parties they have created on their dashboard. These listings include movie image, title, date and time of the event, host details, and the list of invited users. Users can click on the movie title to visit the movie details page.
+
+  By incorporating these features, this project showcases the ability to create a dynamic web application that allows users to discover movies, create and manage viewing parties, and interact with other users, all while consuming data from an external API (The MovieDB API).<p>
+</div>
+      </div>
+    </div>
+
+    <script>
+      function openPopup(popupId) {
+        document.getElementById(popupId).style.display = "block";
+      }
+
+      function closePopup(popupId) {
+        document.getElementById(popupId).style.display = "none";
+      }
+    </script>
   </body>
 </html>

@@ -1,8 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5dc;
+      margin: 0;
+      padding: 0;
+    }
 
-<%= button_to "Discover Top Rated Movies", "/users/#{@user.id}/movies", method: :get, params: {top_rated: true}, local: true %>
+    #discover-buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
 
-<%= form_with url: "/users/#{@user.id}/movies", method: :get, local: true do |f| %>
-  <%= f.label :search_for_movie %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
-<% end %>
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    input[type="submit"] {
+      background-color: #35424a;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #e8491d;
+      transition: background-color 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <div id="discover-buttons">
+    <%= button_to "Discover Top Rated Movies", "/users/#{@user.id}/movies", method: :get, params: {top_rated: true}, local: true, class: "button" %>
+  </div>
+
+  <%= form_with url: "/users/#{@user.id}/movies", method: :get, local: true do |f| %>
+    <%= f.label :search_for_movie %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search", class: "submit-button" %>
+  <% end %>
+</body>
+</html>
