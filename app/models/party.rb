@@ -5,6 +5,6 @@ class Party < ApplicationRecord
   validates :name, :party_date, :party_time, :user_id, :duration, presence: :true
 
   def list_invitees
-    self.users.joins(:user_parties).where(user_parties: {party_id: self.id}).where(user_parties: {invite_status: "invited"}).distinct
+    users.joins(:user_parties).where(user_parties: {party_id: id}).where(user_parties: {invite_status: "invited"}).distinct
   end
 end

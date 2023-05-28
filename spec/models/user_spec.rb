@@ -14,28 +14,25 @@ RSpec.describe User, type: :model do
   let!(:usp3) { UserParty.create!(user_id: andra.id, party_id: eighties.id, invite_status: 1) }
   let!(:usp4) { UserParty.create!(user_id: hady.id, party_id: eighties.id, invite_status: 2) }
 
-
   describe "relationships" do
     it { should have_many :user_parties }
     it { should have_many(:parties).through(:user_parties) }
   end
 
   describe "instance methods" do
-
     it "get_host_parties" do
       expect(hady.get_host_parties).to eq([girls_night, eighties, other])
       expect(hady.get_host_parties).to_not eq([halloween])
     end
 
-    it "invited_parties" do 
+    it "invited_parties" do
       expect(andra.invited_parties).to eq([halloween, girls_night])
       expect(hady.get_host_parties).to_not eq([eighties])
-    end 
+    end
   end
 
-  describe "class methods" do 
-
-    it "can find the host" do 
+  describe "class methods" do
+    it "can find the host" do
       expect(User.find_host(andra.id)).to eq(andra.name)
     end
   end

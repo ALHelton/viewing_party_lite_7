@@ -5,7 +5,6 @@ RSpec.describe Party, type: :model do
   let!(:hady) { User.create!(name: "Hady", email: "hady@turing.edu") }
   let!(:mike) { User.create!(name: "Mike", email: "mike@turing.edu") }
 
-
   let!(:halloween) { Party.create!(name: "Halloween Party", user_id: andra.id, party_date: "Thu, 23 Mar 2023", party_time: "10:30", duration: 123) }
   let!(:girls_night) { Party.create!(name: "Girl's Night", user_id: hady.id, party_date: "Thu, 23 Mar 2023", party_time: "02:00", duration: 210) }
   let!(:eighties) { Party.create!(name: "Eighties Themed", user_id: hady.id, party_date: "Thu, 23 Mar 20233", party_time: "02:00", duration: 210) }
