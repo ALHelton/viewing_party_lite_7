@@ -15,6 +15,6 @@ class RegisterController < ApplicationController
   private
 
   def user_params
-    params.permit(:name, :email)
+    params.permit(:name, :email, :admin)
   end
 end

@@ -1,0 +1,28 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    - if flash[:notice]
+      = flash[:notice]
+    - if flash[:error]
+      = flash[:error]
+    #page-container
+      %h1#title Viewing Party Application (Andra and Hady)
+      = button_to "Create New User", "/register", method: :get, class: "btn"
+      %h3 LOGIN
+      = form_with url: "/session", method: :post, local: true do |form|
+        = form.label :name
+        = form.text_field :name
+        %br/
+        = form.label :email
+        = form.text_field :email
+        %br/
+        = form.submit 'Login'
+  %h3 LOGOUT
+  = form_with url: "/session", method: :delete, local: true do |form|
+    = form.submit 'Logout'
+  #existing_users
+    %h2 Existing Users and Their Dashboards
+    - @users.each do |user|
+      = link_to "#{user.name}'s Dashboard", "/users/#{user.id}", class: "dashboard-link"

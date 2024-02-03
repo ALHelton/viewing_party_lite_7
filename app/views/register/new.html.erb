@@ -116,6 +116,8 @@
     <%= form.label :email %>
     <%= form.text_field :email %>
     <br>
+    <%= form.label :admin_check, "Admin" %>
+    <%= form.check_box :admin %>
     <%= form.submit 'Register User' %>
   <% end %>
 </body>

@@ -1,4 +1,5 @@
 class PartiesController < ApplicationController
+  before_action :require_login, only: [:destroy]
   def new
     @movie = MoviesFacade.new.get_all_movie_info(params[:movie_id])
     @user = User.find(params[:user_id])
@@ -23,6 +24,19 @@ class PartiesController < ApplicationController
       flash[:notice] = "Duration is less than actual play time"
       redirect_to "/users/#{@user.id}/movies/#{@movie.movie_id}/parties/new"
     end
+  end
+
+  def destroy 
+    @party = Party.find(params[:party_id])
+
+    begin 
+      authorize_action_for @party
+      @party.destroy
+    rescue 
+      flash[:error] = "You can't delete someone else's party"
+    ensure 
+      redirect_to "/users/#{session[:user_id]}"
+    end 
   end
 
   private

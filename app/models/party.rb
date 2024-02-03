@@ -1,4 +1,6 @@
 class Party < ApplicationRecord
+  include Authority::Abilities
+  self.authorizer_name = 'PartyAuthority'
   has_many :user_parties
   has_many :users, through: :user_parties
 

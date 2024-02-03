@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def dashboard
     @user = User.find(params[:id])
     @invited_parties = @user.invited_parties
-    @all_user_parties_host = @user.get_host_parties.map do |party|
+    @all_user_parties_host = Party.all.map do |party|
       movie_info = MoviesFacade.new.get_all_movie_info(party.movie_id)
 
       {party: party,

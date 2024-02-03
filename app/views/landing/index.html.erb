@@ -1,64 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      background-color: #f5deb3;
-    }
-
-    #page-container {
-      margin: 2em;
-      <button id="about-us-button">About Us</button>
-
-    }
-
-    #title {
-      font-size: 1.5em;
-      margin-bottom: 1em;
-    }
-
-    #create-user-button {
-      background-color: #3498db;
-      border: none;
-      color: white;
-      cursor: pointer;
-      font-size: 1em;
-      margin-bottom: 1.5em;
-      padding: 0.5em 1em;
-      text-decoration: none;
-    }
-
-    #create-user-button:hover {
-      background-color: #2980b9;
-    }
-
-    #existing_users h2 {
-      font-size: 1.2em;
-      margin-bottom: 0.5em;
-    }
-
-    #existing_users a {
-      display: block;
-      margin-bottom: 0.5em;
-      color: #3498db;
-    }
-
-    #existing_users a:hover {
-      color: #2980b9;
-      text-decoration: underline;
-    }
-  </style>
 </head>
 <body>
+<%if flash[:notice]%>
+  <%=flash[:notice]%>
+<%end%>
+
+<%if flash[:error]%>
+  <%=flash[:error]%>
+<%end%>
   <div id="page-container">
     <h1 id="title">Viewing Party Application (Andra and Hady)</h1>
-
     <%= button_to "Create New User", "/register", method: :get, class: "btn" %>
-    <%= button_to "Create Admin", "/register_admin", method: :get, class: "btn" %>
+
+    <h3>LOGIN</h3>
+    <%= form_with url: "/session", method: :post, local: true do |form| %>
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+      <br>
+      <%= form.label :email %>
+      <%= form.text_field :email %>
+      <br>
+      <%= form.submit 'Login' %>
+    <% end %>
+  </body>
+
+  <h3>LOGOUT</h3>
+  <%= form_with url: "/session", method: :delete, local: true do |form| %>
+    <%= form.submit 'Logout' %>
+  <% end %>
+</body>
 
 
     <div id="existing_users">

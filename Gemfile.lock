@@ -93,6 +93,7 @@ GEM
     diff-lcs (1.5.0)
     docile (1.4.0)
     erubi (1.12.0)
+    erubis (2.7.0)
     faraday (2.7.4)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
@@ -101,7 +102,16 @@ GEM
       thor (>= 0.14.0, < 2)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    haml (6.1.1)
+      temple (>= 0.8.2)
+      thor
+      tilt
     hashdiff (1.0.1)
+    html2haml (2.3.0)
+      erubis (~> 2.7.0)
+      haml (>= 4.0)
+      nokogiri (>= 1.6.0)
+      ruby_parser (~> 3.5)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.5)
@@ -138,6 +148,8 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
+    nokogiri (1.14.2-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.14.2-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.14.2-x86_64-linux)
@@ -224,6 +236,9 @@ GEM
       rubocop (>= 1.33.0, < 2.0)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
+    ruby_parser (3.20.1)
+      sexp_processor (~> 4.16)
+    sexp_processor (4.17.0)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
     simplecov (0.22.0)
@@ -245,7 +260,9 @@ GEM
       rubocop-performance (~> 1.16.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
+    temple (0.10.2)
     thor (1.2.1)
+    tilt (2.1.0)
     timeout (0.3.2)
     turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
@@ -272,6 +289,7 @@ GEM
     zeitwerk (2.6.7)
 
 PLATFORMS
+  arm64-darwin-22
   x86_64-darwin-21
   x86_64-darwin-22
   x86_64-linux
@@ -282,6 +300,8 @@ DEPENDENCIES
   capybara
   faraday
   figaro
+  haml
+  html2haml
   importmap-rails
   jbuilder
   launchy
@@ -303,7 +323,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.1.1p18
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.3.26
